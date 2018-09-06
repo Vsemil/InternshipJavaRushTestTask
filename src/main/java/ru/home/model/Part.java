@@ -1,14 +1,11 @@
 package ru.home.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
-@Entity
+//@Entity
 public class Part {
 
-    @Id
-    @GeneratedValue
+//    @Id
+//    @GeneratedValue
     private long id;
     private String name;
     private boolean isCompulsory;
