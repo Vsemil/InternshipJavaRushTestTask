@@ -23,10 +23,6 @@
                     <a class="nav-link" href="#">Добавить</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Введите имя" aria-label="Search">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Поиск</button>
-            </form>
         </div>
     </nav>
     <div class="row"></div>
@@ -36,10 +32,39 @@
             <table class="table table-hover" st-table="parts" st-pipe="getParts">
                 <thead class="thead-light">
                     <tr>
+                        <th></th>
+                        <th colspan="3">
+                            <div class="input-group">
+                                <input st-search="name" type="text" class="form-control" placeholder="Начните вводить наименование детали ..." aria-describedby="basic-addon2">
+                                <div class="input-group-append">
+                                    <span class="input-group-text bg-info text-light" id="basic-addon2"><span class="fas fa-search"> Поиск</span></span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-around mt-3">
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="AllParts" name="options" class="custom-control-input"
+                                           ng-model="option" value="all" st-search="compulsory">
+                                    <label class="custom-control-label"  for="AllParts" >Все детали</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="compulsory" name="options" class="custom-control-input"
+                                           ng-model="option" value="true" st-search="compulsory">
+                                    <label class="custom-control-label" for="compulsory">Обязательные</label>
+                                </div>
+                                <div class="custom-control custom-radio custom-control-inline">
+                                    <input type="radio" id="notCompulsory" name="options" class="custom-control-input"
+                                           ng-model="option" value="false" st-search="compulsory">
+                                    <label class="custom-control-label" for="notCompulsory">Опциональные</label>
+                                </div>
+                            </div>
+                        </th>
+                        <th></th>
+                    </tr>
+                    <tr>
                         <th scope="col">#</th>
                         <th scope="col" st-sort="name">Наименование </th>
-                        <th scope="col" style="width: 15%">Необходимость </th>
-                        <th scope="col" style="width: 15%">Количество </th>
+                        <th scope="col" style="width: 15%" class="text-center">Необходимость </th>
+                        <th scope="col" style="width: 15%" class="text-center">Количество </th>
                         <th style="width: 15%"></th>
                     </tr>
                 </thead>
@@ -47,8 +72,8 @@
                     <tr ng-repeat="part in parts">
                         <th scope="row" class="align-middle">{{$index + 1 + userCtrl.indexOffset}}</th>
                         <td class="align-middle">{{part.name}}</td>
-                        <td class="align-middle">{{part.compulsory ? 'да' : 'нет'}}</td>
-                        <td class="align-middle">{{part.amount}}</td>
+                        <td class="align-middle text-center">{{part.compulsory ? 'да' : 'нет'}}</td>
+                        <td class="align-middle text-center">{{part.amount}}</td>
                         <td class="d-flex justify-content-end">
                             <button type="button"
                                     class="mx-2 btn btn-light btn-resize"

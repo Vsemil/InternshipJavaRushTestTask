@@ -14,10 +14,12 @@ import java.util.List;
 public class PartRestController {
 
     @RequestMapping("/all")
-    public List<Part> greeting(Pageable pageable, @RequestParam(value="name", defaultValue="World") String name) {
-        System.out.println(pageable);
+    public List<Part> greeting(Pageable pageable,
+                               @RequestParam(value="name", required = false) String name,
+                               @RequestParam(value="compulsory", required = false) Boolean compulsory) {
+        System.out.println(name +  " " +compulsory);
         List<Part> parts = new ArrayList<>();
-        for (int i = 0; i < 35; i++) {
+        for (int i = 0; i < 10; i++) {
             Part part = new Part();
             part.setId(i + 1);
             part.setName("Комплектующая" + (i + 1));
