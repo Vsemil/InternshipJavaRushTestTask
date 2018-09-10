@@ -26,6 +26,7 @@ angular.module('app', ['smart-table', 'ngRoute'])
         $scope.indexOffset = 0;
         $scope.itemsByPage = 10;
         $scope.option = 'all';
+        $scope.totalComp = 0;
 
         $scope.getParts = function(tableState){
             var pagination = tableState.pagination;
@@ -36,7 +37,10 @@ angular.module('app', ['smart-table', 'ngRoute'])
                 page: (start / number),
                 size: number
             };
-            if (!!tableState.search.predicateObject) {
+            if (!!tableState.sort.reverse) {
+                ret.sort =ret.sort + ',desc';
+            }
+            if (tableState.search.predicateObject) {
                 ret.name = tableState.search.predicateObject.name;
             }
             if ($scope.option !== 'all' && $scope.option !== undefined) {
@@ -47,6 +51,9 @@ angular.module('app', ['smart-table', 'ngRoute'])
                 $scope.parts = response.data.content;
                 $scope.indexOffset = ret.page * ret.size;
             });
+            $http.get('/countGatherComputer').then(function(response) {
+                $scope.totalComp = response.data;
+            });
         };
 
         $scope.remove = function (part) {
@@ -55,12 +62,18 @@ angular.module('app', ['smart-table', 'ngRoute'])
 
         $scope.deletePart = function () {
             $http.delete('delete', {params: {id: $scope.removePart.id}}).then(function (value) {
-
+                var index = $scope.parts.indexOf($scope.removePart);
+                if (index !== -1) {
+                    $scope.parts.splice(index, 1);
+                }
+                $http.get('/countGatherComputer').then(function(response) {
+                    $scope.totalComp = response.data;
+                });
             })
         };
 
     })
-    .controller('editController', function($scope, $http, $routeParams) {
+    .controller('editController', function($scope, $http, $routeParams, $location) {
         $scope.part = {};
 
         $scope.$on("$routeChangeSuccess", function () {
@@ -71,4 +84,13 @@ angular.module('app', ['smart-table', 'ngRoute'])
                 });
             }
         });
+
+        $scope.savePart = function () {
+            if ($scope.part.compulsory === undefined) {
+                $scope.part.compulsory = false;
+            }
+            $http.post('/savePart', $scope.part).then(function success(response) {
+                $location.url('/')
+            });
+        }
     });

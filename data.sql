@@ -2,7 +2,7 @@ USE test;
 
 DROP TABLE IF EXISTS part;
 CREATE TABLE part(
-id bigint not null,
+id bigint not null AUTO_INCREMENT,
 amount integer not null,
 is_compulsory bit not null,
 name varchar(255),

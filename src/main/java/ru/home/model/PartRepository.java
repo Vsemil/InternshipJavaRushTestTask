@@ -4,6 +4,7 @@ package ru.home.model;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
@@ -12,4 +13,6 @@ public interface PartRepository extends JpaRepository<Part, Long> {
     Page<Part> findAllByNameIgnoreCaseStartingWithAndIsCompulsory(Pageable pageable, @Nullable String name, @Nullable Boolean IsCompulsory);
     Page<Part> findAllByNameIgnoreCaseStartingWith(Pageable pageable, @Nullable String name);
     Page<Part> findAllByIsCompulsory(Pageable pageable, @Nullable Boolean IsCompulsory);
+    @Query(value = "select min(p.amount) from Part p where p.is_compulsory = true ", nativeQuery = true)
+    int countGatherComputer();
 }

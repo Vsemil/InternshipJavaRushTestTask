@@ -33,7 +33,7 @@
                     <th></th>
                 </tr>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col" style="width: 10%">#</th>
                     <th scope="col" st-sort="name">Наименование </th>
                     <th scope="col" style="width: 15%" class="text-center">Необходимость </th>
                     <th scope="col" style="width: 15%" class="text-center">Количество </th>
@@ -67,20 +67,24 @@
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td colspan="5" class="text-center">
-                        <div st-pagination="" st-items-by-page="itemsByPage" ></div>
+                    <td>
+                        <a class="btn btn-primary mt-3" href="#!/addNew">Добавить</a>
+                    </td>
+                    <td colspan="4" >
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div st-pagination="" st-items-by-page="itemsByPage" ></div>
+                        </div>
                     </td>
                 </tr>
                 </tfoot>
             </table>
         </div>
+        <div class="alert alert-info" role="alert">
+            Вы можете собрать {{totalComp}} компьютера(ов)
+        </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-sm">
-        <a class="btn btn-primary ml-3" href="#!/addNew">Добавить</a>
-    </div>
-</div>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

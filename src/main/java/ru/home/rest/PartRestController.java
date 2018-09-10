@@ -3,10 +3,7 @@ package ru.home.rest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.home.model.Part;
 import ru.home.model.PartRepository;
 
@@ -23,6 +20,7 @@ public class PartRestController {
     public Page<Part> greeting(Pageable pageable,
                                @RequestParam(value="name", required = false) String name,
                                @RequestParam(value="compulsory", required = false) Boolean compulsory) {
+        System.out.println(pageable);
         if (name == null && compulsory == null) {
             return partRepository.findAll(pageable);
         } else if (name == null) {
@@ -42,5 +40,16 @@ public class PartRestController {
     @RequestMapping("/getPart")
     public Part getPart(@RequestParam(value = "id")Part part){
         return part;
+    }
+
+    @PostMapping("/savePart")
+    public void savePart(@RequestBody Part part){
+        System.out.println(part);
+        partRepository.save(part);
+    }
+
+    @RequestMapping("/countGatherComputer")
+    public Integer countGatherComputer(){
+        return partRepository.countGatherComputer();
     }
 }

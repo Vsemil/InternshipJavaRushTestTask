@@ -3,7 +3,7 @@
         <div class="m-3">
             <h2 ng-if="part.id !== undefined">Редактирование детали</h2>
             <h2 ng-if="part.id === undefined">Добавление новой детали</h2>
-            <form>
+            <form name="myForm" ng-submit="savePart();">
                 <div class="form-group">
                     <label for="name" >Наименование</label>
                     <input type="text" class="form-control" id="name" placeholder="Введите имя детали"
