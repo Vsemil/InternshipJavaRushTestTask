@@ -2,11 +2,11 @@
 <html lang="en" ng-app="app">
 <head>
     <meta charset="UTF-8">
-    <title>Hello AngularJS</title>
+    <title>Комплектующие</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
-<body ng-controller="partsController">
+<body ng-controller="mainController">
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="#">Комплектующие</a>
@@ -16,98 +16,19 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item" ng-class="{active : location.path() === '/'}">
                     <a class="nav-link" href="#">В начало <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Добавить</a>
+                <li class="nav-item" ng-class="{active : location.path() === '/addNew'}">
+                    <a class="nav-link" href="#!/addNew">Добавить</a>
                 </li>
             </ul>
         </div>
     </nav>
-    <div class="row"></div>
-    <div class="row">
-        <div class="col-sm">
-            <div class="m-3">
-            <table class="table table-hover" st-table="parts" st-pipe="getParts">
-                <thead class="thead-light">
-                    <tr>
-                        <th></th>
-                        <th colspan="3">
-                            <div class="input-group">
-                                <input st-search="name" type="text" class="form-control" placeholder="Начните вводить наименование детали ..." aria-describedby="basic-addon2">
-                                <div class="input-group-append">
-                                    <span class="input-group-text bg-info text-light" id="basic-addon2"><span class="fas fa-search"> Поиск</span></span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-around mt-3">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="AllParts" name="options" class="custom-control-input"
-                                           ng-model="option" value="all" st-search="compulsory">
-                                    <label class="custom-control-label"  for="AllParts" >Все детали</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="compulsory" name="options" class="custom-control-input"
-                                           ng-model="option" value="true" st-search="compulsory">
-                                    <label class="custom-control-label" for="compulsory">Обязательные</label>
-                                </div>
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input type="radio" id="notCompulsory" name="options" class="custom-control-input"
-                                           ng-model="option" value="false" st-search="compulsory">
-                                    <label class="custom-control-label" for="notCompulsory">Опциональные</label>
-                                </div>
-                            </div>
-                        </th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col" st-sort="name">Наименование </th>
-                        <th scope="col" style="width: 15%" class="text-center">Необходимость </th>
-                        <th scope="col" style="width: 15%" class="text-center">Количество </th>
-                        <th style="width: 15%"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="part in parts">
-                        <th scope="row" class="align-middle">{{$index + 1 + userCtrl.indexOffset}}</th>
-                        <td class="align-middle">{{part.name}}</td>
-                        <td class="align-middle text-center">{{part.compulsory ? 'да' : 'нет'}}</td>
-                        <td class="align-middle text-center">{{part.amount}}</td>
-                        <td class="d-flex justify-content-end">
-                            <button type="button"
-                                    class="mx-2 btn btn-light btn-resize"
-                                    data-toggle="tooltip"
-                                    title="Редактировать">
-                                <span class="fas fa-edit"></span>
-                            </button>
-                            <button type="button"
-                                    class="mx-2 btn btn-light btn-resize"
-                                    data-toggle="tooltip"
-                                    title="Удалить">
-                                <span class="fas fa-trash-alt"></span>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="5" class="text-center">
-                        <div st-pagination="" st-items-by-page="itemsByPage" ></div>
-                    </td>
-                </tr>
-                </tfoot>
-            </table>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            <button type="button" class="btn btn-primary ml-3">Добавить</button>
-        </div>
-    </div>
+    <ng-view></ng-view>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-route.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-smart-table/2.1.11/smart-table.min.js"></script>
 <script src="js/app.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
